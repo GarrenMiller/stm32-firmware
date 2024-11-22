@@ -4,12 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-# embedded-hal = "0.2.7"
-# nb = "1"
 cortex-m = "0.7.6"
 cortex-m-rt = "0.6.5"
-embedded-hal = "1.0.0"
-panic-halt = "1.0.0"
-# Panic behaviour, see https://crates.io/keywords/panic-impl for alternatives
-# panic-halt = "0.2.0"
-stm32wb-hal = { version = "0.1.14", features = ["xC-package"] }
+cortex-m-semihosting = "0.3.4"
+panic-halt = "0.2.0"
