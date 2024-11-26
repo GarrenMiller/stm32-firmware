@@ -1,12 +1,5 @@
-[target.thumbv7em-none-eabi]
-runner = 'probe-rs run --chip STM32WB5MMGHx'
-rustflags = [
-#   "-C", "link-arg=-Tmemory.x",
-#   "-C", "linker=thumbv7em-none-eabi",
-]
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+runner = "probe-rs run --chip STM32WB5MMGHx" # to list chips, run `probe-run --list-chips.`
 
 [build]
 target = "thumbv7em-none-eabi"
-
-[env]
-DEFMT_LOG = "info"

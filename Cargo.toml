@@ -6,5 +6,7 @@ edition = "2021"
 [dependencies]
 cortex-m = "0.7.6"
 cortex-m-rt = "0.6.5"
-cortex-m-semihosting = "0.3.4"
-panic-halt = "0.2.0"
+hal = { package = "stm32-hal2", version = "^0.2.11", features = ["wb55", "wbrt"] }
+# defmt = "0.3.0"
+# defmt-rtt = "0.4.0"
+# panic-probe = { version = "0.3.0", features = ["print-defmt"] }
