@@ -1,38 +1,16 @@
 #![no_std]
 #![no_main]
 
+mod LSM6DSOXTR;
+
 use core::panic::PanicInfo;
-use cortex_m::delay::Delay;
 use cortex_m_rt::entry;
-use hal::{
-    self,
-    clocks::Clocks,
-    gpio::{Pin, PinMode, Port},
-    pac,
-};
-
-// use defmt_rtt as _; // global logger
-
 
 #[entry]
-fn main() -> ! {
-    let cp = cortex_m::Peripherals::take().unwrap();
-    let mut dp = pac::Peripherals::take().unwrap();
-
-    let clock_cfg = Clocks::default();
-
-    clock_cfg.setup(&mut dp.RCC, &mut dp.FLASH).unwrap();
-
-    let mut dealy = Delay::new(cp.SYST, clock_cfg.systick());
-    
-    // TODO: This does not work; have to use the SPI interface
-    let mut led = Pin::new(Port::C, 13, PinMode::Output);
-
+unsafe fn main() -> ! {
+    LSM6DSOXTR::read_accelerometer_who_am_i();
     loop {
-        led.set_low();
-        dealy.delay_ms(1000);
-        led.set_high();
-        dealy.delay_ms(1000);
+        cortex_m::asm::nop();
     }
 }
 
