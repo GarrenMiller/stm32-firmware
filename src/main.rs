@@ -1,14 +1,16 @@
 #![no_std]
 #![no_main]
 
-mod LSM6DSOXTR;
+mod lsm6dsoxtr;
 
 use core::panic::PanicInfo;
 use cortex_m_rt::entry;
 
 #[entry]
 unsafe fn main() -> ! {
-    LSM6DSOXTR::read_accelerometer_who_am_i();
+    let mut sensor = lsm6dsoxtr::init();
+    let register_data = lsm6dsoxtr::read_register(&mut sensor, lsm6dsoxtr::RegisterMap::CTRL9_XL);
+    defmt::info!("Register data: {:#X}", register_data);
     loop {
         cortex_m::asm::nop();
     }
