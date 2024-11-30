@@ -18,7 +18,7 @@ use hal::gpio::{Pin, Port, PinMode, OutputType};
 use hal::pac;
 
 const LSM6DSOXTR_ADDR: u8 = 0x6B; // I2C address of the accelerometer
-const WHO_AM_I_REG: u8 = 0x0F; // WHO_AM_I register address
+const FIFO_CTRL2_REG: u8 = 0x18; // FIFO_CTRL2 register address
 
 pub fn read_accelerometer_who_am_i() {
     defmt::info!("Trying to read WHO_AM_I register of the LSM6DSOXTR accelerometer");
@@ -41,11 +41,11 @@ pub fn read_accelerometer_who_am_i() {
     defmt::info!("Reading WHO_AM_I register");
     let mut who_am_i = [0u8; 1];
     defmt::info!("Before reading WHO_AM_I register : {:#X}", who_am_i);
-    match i2c.write_read(LSM6DSOXTR_ADDR, &[WHO_AM_I_REG], &mut who_am_i) {
+    match i2c.write_read(LSM6DSOXTR_ADDR, &[FIFO_CTRL2_REG], &mut who_am_i) {
         Ok(_) => defmt::info!("WHO_AM_I register read successfully"),
         Err(_) => defmt::info!("Failed to read WHO_AM_I register"),
     }
-    defmt::info!("WHO_AM_I register value: {:#X}", who_am_i);
+    defmt::info!("WHO_AM_I register value: {:#X}", who_am_i[0]);
 
     // Print the result
     hal::debug_workaround();
